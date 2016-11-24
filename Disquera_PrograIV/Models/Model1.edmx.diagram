@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab2017a28cd74768b1b3deb1cf1ef1d8" Name="Diagram1">
+        <EntityTypeShape EntityType="parcial4Model.AspNetUsers" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="parcial4Model.Autor" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="parcial4Model.Cancion" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="parcial4Model.Disco" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="parcial4Model.DiscoVenta" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="parcial4Model.Genero" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="parcial4Model.Nacionalidad" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="parcial4Model.Usuario" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="parcial4Model.Venta" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="parcial4Model.FK_Usuario_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="parcial4Model.FK_Autor_Nacionalidad" ManuallyRouted="false" />
+        <AssociationConnector Association="parcial4Model.FK_Disco_Autor" ManuallyRouted="false" />
+        <AssociationConnector Association="parcial4Model.FK_Cancion_Disco" ManuallyRouted="false" />
+        <AssociationConnector Association="parcial4Model.FK_Disco_Genero" ManuallyRouted="false" />
+        <AssociationConnector Association="parcial4Model.FK_DiscoVenta_Disco" ManuallyRouted="false" />
+        <AssociationConnector Association="parcial4Model.FK_DiscoVenta_Venta" ManuallyRouted="false" />
+        <AssociationConnector Association="parcial4Model.FK_Venta_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="parcial4Model.FK_Venta_Usuario1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

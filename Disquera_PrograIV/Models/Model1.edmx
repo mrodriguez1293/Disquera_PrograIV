@@ -1,0 +1,642 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="parcial4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="aut_id" />
+          </Key>
+          <Property Name="aut_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aut_nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="aut_ape" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nac_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cancion">
+          <Key>
+            <PropertyRef Name="can_id" />
+          </Key>
+          <Property Name="can_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="can_nom" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="can_dur" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="dis_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Disco">
+          <Key>
+            <PropertyRef Name="dis_id" />
+          </Key>
+          <Property Name="dis_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dis_alb" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="dis_val" Type="float" Nullable="false" />
+          <Property Name="gen_id" Type="int" Nullable="false" />
+          <Property Name="aut_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DiscoVenta">
+          <Key>
+            <PropertyRef Name="dis_id" />
+            <PropertyRef Name="ven_id" />
+          </Key>
+          <Property Name="dis_id" Type="int" Nullable="false" />
+          <Property Name="ven_id" Type="int" Nullable="false" />
+          <Property Name="dive_can" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genero">
+          <Key>
+            <PropertyRef Name="gen_id" />
+          </Key>
+          <Property Name="gen_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gen_nom" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nacionalidad">
+          <Key>
+            <PropertyRef Name="nac_id" />
+          </Key>
+          <Property Name="nac_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nac_nom" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="usu_rut" />
+          </Key>
+          <Property Name="usu_rut" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="usu_nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="usu_ape" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="asp_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="ven_id" />
+          </Key>
+          <Property Name="ven_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ven_date" Type="date" Nullable="false" />
+          <Property Name="ven_autorizada" Type="tinyint" />
+          <Property Name="ven_tot" Type="float" Nullable="false" />
+          <Property Name="usu_rut_eje" Type="varchar" MaxLength="10" />
+          <Property Name="usu_rut_cli" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Autor_Nacionalidad">
+          <End Role="Nacionalidad" Type="Self.Nacionalidad" Multiplicity="1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nacionalidad">
+              <PropertyRef Name="nac_id" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="nac_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cancion_Disco">
+          <End Role="Disco" Type="Self.Disco" Multiplicity="1" />
+          <End Role="Cancion" Type="Self.Cancion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disco">
+              <PropertyRef Name="dis_id" />
+            </Principal>
+            <Dependent Role="Cancion">
+              <PropertyRef Name="dis_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Disco_Autor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="Disco" Type="Self.Disco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="aut_id" />
+            </Principal>
+            <Dependent Role="Disco">
+              <PropertyRef Name="aut_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Disco_Genero">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+          <End Role="Disco" Type="Self.Disco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="gen_id" />
+            </Principal>
+            <Dependent Role="Disco">
+              <PropertyRef Name="gen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiscoVenta_Disco">
+          <End Role="Disco" Type="Self.Disco" Multiplicity="1" />
+          <End Role="DiscoVenta" Type="Self.DiscoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disco">
+              <PropertyRef Name="dis_id" />
+            </Principal>
+            <Dependent Role="DiscoVenta">
+              <PropertyRef Name="dis_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiscoVenta_Venta">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+          <End Role="DiscoVenta" Type="Self.DiscoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="ven_id" />
+            </Principal>
+            <Dependent Role="DiscoVenta">
+              <PropertyRef Name="ven_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="asp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usu_rut" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="usu_rut_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usu_rut" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="usu_rut_eje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="parcial4ModelStoreContainer">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cancion" EntityType="Self.Cancion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Disco" EntityType="Self.Disco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiscoVenta" EntityType="Self.DiscoVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nacionalidad" EntityType="Self.Nacionalidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Autor_Nacionalidad" Association="Self.FK_Autor_Nacionalidad">
+            <End Role="Nacionalidad" EntitySet="Nacionalidad" />
+            <End Role="Autor" EntitySet="Autor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cancion_Disco" Association="Self.FK_Cancion_Disco">
+            <End Role="Disco" EntitySet="Disco" />
+            <End Role="Cancion" EntitySet="Cancion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Disco_Autor" Association="Self.FK_Disco_Autor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Disco" EntitySet="Disco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Disco_Genero" Association="Self.FK_Disco_Genero">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Disco" EntitySet="Disco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscoVenta_Disco" Association="Self.FK_DiscoVenta_Disco">
+            <End Role="Disco" EntitySet="Disco" />
+            <End Role="DiscoVenta" EntitySet="DiscoVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscoVenta_Venta" Association="Self.FK_DiscoVenta_Venta">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="DiscoVenta" EntitySet="DiscoVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_AspNetUsers" Association="Self.FK_Usuario_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_Usuario" Association="Self.FK_Venta_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_Usuario1" Association="Self.FK_Venta_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="parcial4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_AspNetUsers" FromRole="AspNetUsers" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="aut_id" />
+          </Key>
+          <Property Name="aut_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aut_nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="aut_ape" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nac_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Nacionalidad" Relationship="Self.FK_Autor_Nacionalidad" FromRole="Autor" ToRole="Nacionalidad" />
+          <NavigationProperty Name="Disco" Relationship="Self.FK_Disco_Autor" FromRole="Autor" ToRole="Disco" />
+        </EntityType>
+        <EntityType Name="Cancion">
+          <Key>
+            <PropertyRef Name="can_id" />
+          </Key>
+          <Property Name="can_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="can_nom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="can_dur" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dis_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Disco" Relationship="Self.FK_Cancion_Disco" FromRole="Cancion" ToRole="Disco" />
+        </EntityType>
+        <EntityType Name="Disco">
+          <Key>
+            <PropertyRef Name="dis_id" />
+          </Key>
+          <Property Name="dis_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dis_alb" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dis_val" Type="Double" Nullable="false" />
+          <Property Name="gen_id" Type="Int32" Nullable="false" />
+          <Property Name="aut_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="Self.FK_Disco_Autor" FromRole="Disco" ToRole="Autor" />
+          <NavigationProperty Name="Cancion" Relationship="Self.FK_Cancion_Disco" FromRole="Disco" ToRole="Cancion" />
+          <NavigationProperty Name="Genero" Relationship="Self.FK_Disco_Genero" FromRole="Disco" ToRole="Genero" />
+          <NavigationProperty Name="DiscoVenta" Relationship="Self.FK_DiscoVenta_Disco" FromRole="Disco" ToRole="DiscoVenta" />
+        </EntityType>
+        <EntityType Name="DiscoVenta">
+          <Key>
+            <PropertyRef Name="dis_id" />
+            <PropertyRef Name="ven_id" />
+          </Key>
+          <Property Name="dis_id" Type="Int32" Nullable="false" />
+          <Property Name="ven_id" Type="Int32" Nullable="false" />
+          <Property Name="dive_can" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Disco" Relationship="Self.FK_DiscoVenta_Disco" FromRole="DiscoVenta" ToRole="Disco" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK_DiscoVenta_Venta" FromRole="DiscoVenta" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Genero">
+          <Key>
+            <PropertyRef Name="gen_id" />
+          </Key>
+          <Property Name="gen_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gen_nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Disco" Relationship="Self.FK_Disco_Genero" FromRole="Genero" ToRole="Disco" />
+        </EntityType>
+        <EntityType Name="Nacionalidad">
+          <Key>
+            <PropertyRef Name="nac_id" />
+          </Key>
+          <Property Name="nac_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nac_nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="Self.FK_Autor_Nacionalidad" FromRole="Nacionalidad" ToRole="Autor" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="usu_rut" />
+          </Key>
+          <Property Name="usu_rut" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usu_nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usu_ape" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="asp_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_Usuario_AspNetUsers" FromRole="Usuario" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK_Venta_Usuario" FromRole="Usuario" ToRole="Venta" />
+          <NavigationProperty Name="Venta1" Relationship="Self.FK_Venta_Usuario1" FromRole="Usuario" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="ven_id" />
+          </Key>
+          <Property Name="ven_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ven_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ven_autorizada" Type="Byte" />
+          <Property Name="ven_tot" Type="Double" Nullable="false" />
+          <Property Name="usu_rut_eje" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="usu_rut_cli" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DiscoVenta" Relationship="Self.FK_DiscoVenta_Venta" FromRole="Venta" ToRole="DiscoVenta" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Venta_Usuario" FromRole="Venta" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="Self.FK_Venta_Usuario1" FromRole="Venta" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_Usuario_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="asp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Autor_Nacionalidad">
+          <End Role="Nacionalidad" Type="Self.Nacionalidad" Multiplicity="1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nacionalidad">
+              <PropertyRef Name="nac_id" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="nac_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Disco_Autor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="Disco" Type="Self.Disco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="aut_id" />
+            </Principal>
+            <Dependent Role="Disco">
+              <PropertyRef Name="aut_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cancion_Disco">
+          <End Role="Disco" Type="Self.Disco" Multiplicity="1" />
+          <End Role="Cancion" Type="Self.Cancion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disco">
+              <PropertyRef Name="dis_id" />
+            </Principal>
+            <Dependent Role="Cancion">
+              <PropertyRef Name="dis_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Disco_Genero">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+          <End Role="Disco" Type="Self.Disco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="gen_id" />
+            </Principal>
+            <Dependent Role="Disco">
+              <PropertyRef Name="gen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiscoVenta_Disco">
+          <End Role="Disco" Type="Self.Disco" Multiplicity="1" />
+          <End Role="DiscoVenta" Type="Self.DiscoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disco">
+              <PropertyRef Name="dis_id" />
+            </Principal>
+            <Dependent Role="DiscoVenta">
+              <PropertyRef Name="dis_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiscoVenta_Venta">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+          <End Role="DiscoVenta" Type="Self.DiscoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="ven_id" />
+            </Principal>
+            <Dependent Role="DiscoVenta">
+              <PropertyRef Name="ven_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usu_rut" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="usu_rut_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usu_rut" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="usu_rut_eje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="parcial4Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="Autor" EntityType="Self.Autor" />
+          <EntitySet Name="Cancion" EntityType="Self.Cancion" />
+          <EntitySet Name="Disco" EntityType="Self.Disco" />
+          <EntitySet Name="DiscoVenta" EntityType="Self.DiscoVenta" />
+          <EntitySet Name="Genero" EntityType="Self.Genero" />
+          <EntitySet Name="Nacionalidad" EntityType="Self.Nacionalidad" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="Venta" EntityType="Self.Venta" />
+          <AssociationSet Name="FK_Usuario_AspNetUsers" Association="Self.FK_Usuario_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Autor_Nacionalidad" Association="Self.FK_Autor_Nacionalidad">
+            <End Role="Nacionalidad" EntitySet="Nacionalidad" />
+            <End Role="Autor" EntitySet="Autor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Disco_Autor" Association="Self.FK_Disco_Autor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Disco" EntitySet="Disco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cancion_Disco" Association="Self.FK_Cancion_Disco">
+            <End Role="Disco" EntitySet="Disco" />
+            <End Role="Cancion" EntitySet="Cancion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Disco_Genero" Association="Self.FK_Disco_Genero">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Disco" EntitySet="Disco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscoVenta_Disco" Association="Self.FK_DiscoVenta_Disco">
+            <End Role="Disco" EntitySet="Disco" />
+            <End Role="DiscoVenta" EntitySet="DiscoVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscoVenta_Venta" Association="Self.FK_DiscoVenta_Venta">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="DiscoVenta" EntitySet="DiscoVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_Usuario" Association="Self.FK_Venta_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_Usuario1" Association="Self.FK_Venta_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="parcial4ModelStoreContainer" CdmEntityContainer="parcial4Entities">
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="parcial4Model.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Autor">
+            <EntityTypeMapping TypeName="parcial4Model.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="aut_id" ColumnName="aut_id" />
+                <ScalarProperty Name="aut_nom" ColumnName="aut_nom" />
+                <ScalarProperty Name="aut_ape" ColumnName="aut_ape" />
+                <ScalarProperty Name="nac_id" ColumnName="nac_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cancion">
+            <EntityTypeMapping TypeName="parcial4Model.Cancion">
+              <MappingFragment StoreEntitySet="Cancion">
+                <ScalarProperty Name="can_id" ColumnName="can_id" />
+                <ScalarProperty Name="can_nom" ColumnName="can_nom" />
+                <ScalarProperty Name="can_dur" ColumnName="can_dur" />
+                <ScalarProperty Name="dis_id" ColumnName="dis_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Disco">
+            <EntityTypeMapping TypeName="parcial4Model.Disco">
+              <MappingFragment StoreEntitySet="Disco">
+                <ScalarProperty Name="dis_id" ColumnName="dis_id" />
+                <ScalarProperty Name="dis_alb" ColumnName="dis_alb" />
+                <ScalarProperty Name="dis_val" ColumnName="dis_val" />
+                <ScalarProperty Name="gen_id" ColumnName="gen_id" />
+                <ScalarProperty Name="aut_id" ColumnName="aut_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiscoVenta">
+            <EntityTypeMapping TypeName="parcial4Model.DiscoVenta">
+              <MappingFragment StoreEntitySet="DiscoVenta">
+                <ScalarProperty Name="dis_id" ColumnName="dis_id" />
+                <ScalarProperty Name="ven_id" ColumnName="ven_id" />
+                <ScalarProperty Name="dive_can" ColumnName="dive_can" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genero">
+            <EntityTypeMapping TypeName="parcial4Model.Genero">
+              <MappingFragment StoreEntitySet="Genero">
+                <ScalarProperty Name="gen_id" ColumnName="gen_id" />
+                <ScalarProperty Name="gen_nom" ColumnName="gen_nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nacionalidad">
+            <EntityTypeMapping TypeName="parcial4Model.Nacionalidad">
+              <MappingFragment StoreEntitySet="Nacionalidad">
+                <ScalarProperty Name="nac_id" ColumnName="nac_id" />
+                <ScalarProperty Name="nac_nom" ColumnName="nac_nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="parcial4Model.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="usu_rut" ColumnName="usu_rut" />
+                <ScalarProperty Name="usu_nom" ColumnName="usu_nom" />
+                <ScalarProperty Name="usu_ape" ColumnName="usu_ape" />
+                <ScalarProperty Name="asp_id" ColumnName="asp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venta">
+            <EntityTypeMapping TypeName="parcial4Model.Venta">
+              <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="ven_id" ColumnName="ven_id" />
+                <ScalarProperty Name="ven_date" ColumnName="ven_date" />
+                <ScalarProperty Name="ven_autorizada" ColumnName="ven_autorizada" />
+                <ScalarProperty Name="ven_tot" ColumnName="ven_tot" />
+                <ScalarProperty Name="usu_rut_eje" ColumnName="usu_rut_eje" />
+                <ScalarProperty Name="usu_rut_cli" ColumnName="usu_rut_cli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

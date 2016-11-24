@@ -1,8 +1,6 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Disquera_PrograIV.Startup))]
-namespace Disquera_PrograIV
+namespace IdentitySample
 {
     public partial class Startup
     {
