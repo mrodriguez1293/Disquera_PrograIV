@@ -1,0 +1,9 @@
+﻿Administrador:
+	admin@disquera.cl
+	123456
+Ejecutivo:
+	ejecutivo@disquera.cl
+	123456
+Cliente:
+	cliente@gmail.com
+	123456
