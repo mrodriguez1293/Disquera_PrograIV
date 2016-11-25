@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Disquera_PrograIV.Models.Disco>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.dis_alb)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dis_val)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autor.aut_nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genero.gen_nom)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.dis_alb)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dis_val)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Autor.aut_nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genero.gen_nom)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.dis_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.dis_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.dis_id })
+        </td>
+    </tr>
+}
+
+</table>

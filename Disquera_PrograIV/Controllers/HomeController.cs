@@ -6,6 +6,19 @@ namespace IdentitySample.Controllers
     {
         public ActionResult Index()
         {
+            if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                return View("Dash_Admin");
+            }
+            else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+            {
+                return View("Dash_Ejecutivo");
+            }
+            else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
+            {
+                return RedirectToAction("Index", "Discoes");
+            }
+
             return View();
         }
 
