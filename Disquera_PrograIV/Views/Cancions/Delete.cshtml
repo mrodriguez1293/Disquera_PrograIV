@@ -1,0 +1,48 @@
+﻿@model Disquera_PrograIV.Models.Cancion
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Cancion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.can_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.can_nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.can_dur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.can_dur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disco.dis_alb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disco.dis_alb)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

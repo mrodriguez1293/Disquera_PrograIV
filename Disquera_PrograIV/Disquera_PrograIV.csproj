@@ -170,12 +170,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CancionsController.cs" />
     <Compile Include="Controllers\CarroesController.cs" />
     <Compile Include="Controllers\DiscoesController.cs" />
+    <Compile Include="Controllers\DiscoVentasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -331,6 +334,24 @@
     <Content Include="Views\Carroes\Edit.cshtml" />
     <Content Include="Views\Carroes\Index.cshtml" />
     <Content Include="Views\Carroes\getMiniCarro.cshtml" />
+    <Content Include="Views\Home\Dash_Admin.cshtml" />
+    <Content Include="Views\Cancions\Create.cshtml" />
+    <Content Include="Views\Cancions\Delete.cshtml" />
+    <Content Include="Views\Cancions\Details.cshtml" />
+    <Content Include="Views\Cancions\Edit.cshtml" />
+    <Content Include="Views\Cancions\Index.cshtml" />
+    <Content Include="Views\Ventas\Create.cshtml" />
+    <Content Include="Views\Ventas\Delete.cshtml" />
+    <Content Include="Views\Ventas\Details.cshtml" />
+    <Content Include="Views\Ventas\Edit.cshtml" />
+    <Content Include="Views\Ventas\Index.cshtml" />
+    <Content Include="Views\Ventas\yo_compro.cshtml" />
+    <Content Include="Views\DiscoVentas\Create.cshtml" />
+    <Content Include="Views\DiscoVentas\Delete.cshtml" />
+    <Content Include="Views\DiscoVentas\Details.cshtml" />
+    <Content Include="Views\DiscoVentas\Edit.cshtml" />
+    <Content Include="Views\DiscoVentas\Index.cshtml" />
+    <Content Include="Views\Home\Dash_Ejecutivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

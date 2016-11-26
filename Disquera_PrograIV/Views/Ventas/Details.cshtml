@@ -1,0 +1,58 @@
+﻿@model Disquera_PrograIV.Models.Venta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Venta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ven_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ven_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ven_autorizada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ven_autorizada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ven_tot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ven_tot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.usu_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.usu_nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario1.usu_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario1.usu_nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ven_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,42 @@
+﻿@model Disquera_PrograIV.Models.DiscoVenta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DiscoVenta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dive_can)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dive_can)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disco.dis_alb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disco.dis_alb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Venta.usu_rut_eje)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Venta.usu_rut_eje)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

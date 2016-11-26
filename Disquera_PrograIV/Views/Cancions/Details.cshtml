@@ -1,0 +1,42 @@
+﻿@model Disquera_PrograIV.Models.Cancion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cancion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.can_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.can_nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.can_dur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.can_dur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disco.dis_alb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disco.dis_alb)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.can_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

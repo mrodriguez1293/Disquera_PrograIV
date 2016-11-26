@@ -53,7 +53,9 @@
             }
             else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
             {
-                @Html.ActionLink("Detalle", "Details", new { id = item.dis_id })
+
+                @Html.ActionLink("Ver Canciones", "canciones", new { id = item.dis_id })
+                @*@Html.ActionLink("Detalle", "Details", new { id = item.dis_id })*@
                 @Html.ActionLink(" Comprar", "#", new { onclick = "cargarAgregarCarro()" }, new { data_toggle = "modal", data_target = "#myModal" })
             }
         </td>

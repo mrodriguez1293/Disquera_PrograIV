@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Disquera Progra4</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -21,13 +21,30 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin")) {
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
                         <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                    }
+                    else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+                    {
+                        <li>@Html.ActionLink("Discos", "Index", "Discoes")</li>
+                        @*<li>@Html.ActionLink("Autores", "Index", "Autores")</li>
+                        <li>@Html.ActionLink("Generos", "Index", "Generos")</li>*@
+                        <li>@Html.ActionLink("Ventas", "Index", "Ventas")</li>
+
+                    }
+                    else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
+                    {
+                        @*<li>@Html.ActionLink("Discos", "Index", "Discos")</li>*@
+                        <li>@Html.ActionLink("Compras", "yo_compro", "Ventas")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
                     }
                 </ul>
                 

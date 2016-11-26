@@ -1,0 +1,64 @@
+﻿@model Disquera_PrograIV.Models.Venta
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Venta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ven_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ven_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ven_autorizada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ven_autorizada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ven_tot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ven_tot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.usu_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.usu_nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario1.usu_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario1.usu_nom)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

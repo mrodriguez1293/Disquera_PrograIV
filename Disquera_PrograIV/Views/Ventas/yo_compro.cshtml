@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Disquera_PrograIV.Models.Venta>
+
+@{
+    ViewBag.Title = "yo_compro";
+}
+
+<h2>yo_compro</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ven_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ven_autorizada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ven_tot)
+        </th>
+        <th>
+            Usuario
+        </th>
+        <th>
+            Ejecutivo
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ven_date)
+            </td>
+            @if (item.ven_autorizada == 1)
+            {
+                <td>Autorizada</td>
+            }
+            else
+            {
+                <td>Rechazada</td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.ven_tot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.usu_nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario1.usu_nom)
+            </td>
+            <td>
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ven_id })
+                    @Html.ActionLink("Details", "Details", new { id = item.ven_id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ven_id })
+                }
+                else if (User.IsInRole("Ejecutivo"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ven_id })
+                    @Html.ActionLink("Details", "Details", new { id = item.ven_id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ven_id })
+
+                }
+                else
+                {
+                    @Html.ActionLink("Ver Detalles Compra ", "venta_eje", new { id = item.ven_id })
+                }
+            </td>
+        </tr>
+    }
+
+</table>

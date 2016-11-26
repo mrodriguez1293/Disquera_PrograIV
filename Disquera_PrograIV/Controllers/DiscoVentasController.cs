@@ -10,121 +10,116 @@ using Disquera_PrograIV.Models;
 
 namespace Disquera_PrograIV.Controllers
 {
-    public class DiscoesController : Controller
+    public class DiscoVentasController : Controller
     {
         private parcial4Entities db = new parcial4Entities();
-        public ActionResult canciones(int? id)
+   
+        // GET: DiscoVentas
+        public ActionResult Index(int id)
         {
-
-            return RedirectToAction("Index", "Cancions", new { id = id });
-
-        }
-        // GET: Discoes
-        public ActionResult Index()
-        {
-            var disco = db.Disco.Include(d => d.Autor).Include(d => d.Genero);
-            return View(disco.ToList());
+            var discoVenta = db.DiscoVenta.Include(d => d.Disco).Include(d => d.Venta);
+            return View(discoVenta.Where(e => e.ven_id == id).ToList());
         }
 
-        // GET: Discoes/Details/5
+        // GET: DiscoVentas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Disco disco = db.Disco.Find(id);
-            if (disco == null)
+            DiscoVenta discoVenta = db.DiscoVenta.Find(id);
+            if (discoVenta == null)
             {
                 return HttpNotFound();
             }
-            return View(disco);
+            return View(discoVenta);
         }
 
-        // GET: Discoes/Create
+        // GET: DiscoVentas/Create
         public ActionResult Create()
         {
-            ViewBag.aut_id = new SelectList(db.Autor, "aut_id", "aut_nom");
-            ViewBag.gen_id = new SelectList(db.Genero, "gen_id", "gen_nom");
+            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb");
+            ViewBag.ven_id = new SelectList(db.Venta, "ven_id", "usu_rut_eje");
             return View();
         }
 
-        // POST: Discoes/Create
+        // POST: DiscoVentas/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "dis_id,dis_alb,dis_val,gen_id,aut_id")] Disco disco)
+        public ActionResult Create([Bind(Include = "dis_id,ven_id,dive_can")] DiscoVenta discoVenta)
         {
             if (ModelState.IsValid)
             {
-                db.Disco.Add(disco);
+                db.DiscoVenta.Add(discoVenta);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.aut_id = new SelectList(db.Autor, "aut_id", "aut_nom", disco.aut_id);
-            ViewBag.gen_id = new SelectList(db.Genero, "gen_id", "gen_nom", disco.gen_id);
-            return View(disco);
+            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb", discoVenta.dis_id);
+            ViewBag.ven_id = new SelectList(db.Venta, "ven_id", "usu_rut_eje", discoVenta.ven_id);
+            return View(discoVenta);
         }
 
-        // GET: Discoes/Edit/5
+        // GET: DiscoVentas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Disco disco = db.Disco.Find(id);
-            if (disco == null)
+            DiscoVenta discoVenta = db.DiscoVenta.Find(id);
+            if (discoVenta == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.aut_id = new SelectList(db.Autor, "aut_id", "aut_nom", disco.aut_id);
-            ViewBag.gen_id = new SelectList(db.Genero, "gen_id", "gen_nom", disco.gen_id);
-            return View(disco);
+            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb", discoVenta.dis_id);
+            ViewBag.ven_id = new SelectList(db.Venta, "ven_id", "usu_rut_eje", discoVenta.ven_id);
+            return View(discoVenta);
         }
 
-        // POST: Discoes/Edit/5
+        // POST: DiscoVentas/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "dis_id,dis_alb,dis_val,gen_id,aut_id")] Disco disco)
+        public ActionResult Edit([Bind(Include = "dis_id,ven_id,dive_can")] DiscoVenta discoVenta)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(disco).State = EntityState.Modified;
+                db.Entry(discoVenta).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.aut_id = new SelectList(db.Autor, "aut_id", "aut_nom", disco.aut_id);
-            ViewBag.gen_id = new SelectList(db.Genero, "gen_id", "gen_nom", disco.gen_id);
-            return View(disco);
+            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb", discoVenta.dis_id);
+            ViewBag.ven_id = new SelectList(db.Venta, "ven_id", "usu_rut_eje", discoVenta.ven_id);
+            return View(discoVenta);
         }
 
-        // GET: Discoes/Delete/5
+        // GET: DiscoVentas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Disco disco = db.Disco.Find(id);
-            if (disco == null)
+            DiscoVenta discoVenta = db.DiscoVenta.Find(id);
+            if (discoVenta == null)
             {
                 return HttpNotFound();
             }
-            return View(disco);
+            return View(discoVenta);
         }
 
-        // POST: Discoes/Delete/5
+        // POST: DiscoVentas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Disco disco = db.Disco.Find(id);
-            db.Disco.Remove(disco);
+            DiscoVenta discoVenta = db.DiscoVenta.Find(id);
+            db.DiscoVenta.Remove(discoVenta);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

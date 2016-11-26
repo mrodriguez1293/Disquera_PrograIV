@@ -10,121 +10,120 @@ using Disquera_PrograIV.Models;
 
 namespace Disquera_PrograIV.Controllers
 {
-    public class DiscoesController : Controller
+    public class CancionsController : Controller
     {
         private parcial4Entities db = new parcial4Entities();
-        public ActionResult canciones(int? id)
+        public ActionResult ListaDiscos()
         {
 
-            return RedirectToAction("Index", "Cancions", new { id = id });
-
+            return RedirectToAction("Index", "Discoes");
         }
-        // GET: Discoes
-        public ActionResult Index()
+        // GET: Cancions
+        public ActionResult Index(int id)
         {
-            var disco = db.Disco.Include(d => d.Autor).Include(d => d.Genero);
-            return View(disco.ToList());
+            Disco discos = db.Disco.Find(id);
+            ViewBag.al = discos.dis_alb;
+            ViewBag.cod = discos.dis_id;
+     
+            var cancion = db.Cancion.Include(c => c.Disco);
+            return View(cancion.Where(e => e.dis_id == id).ToList());
         }
 
-        // GET: Discoes/Details/5
+        // GET: Cancions/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Disco disco = db.Disco.Find(id);
-            if (disco == null)
+            Cancion cancion = db.Cancion.Find(id);
+            if (cancion == null)
             {
                 return HttpNotFound();
             }
-            return View(disco);
+            return View(cancion);
         }
 
-        // GET: Discoes/Create
+        // GET: Cancions/Create
         public ActionResult Create()
         {
-            ViewBag.aut_id = new SelectList(db.Autor, "aut_id", "aut_nom");
-            ViewBag.gen_id = new SelectList(db.Genero, "gen_id", "gen_nom");
+            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb");
             return View();
         }
 
-        // POST: Discoes/Create
+        // POST: Cancions/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "dis_id,dis_alb,dis_val,gen_id,aut_id")] Disco disco)
+        public ActionResult Create([Bind(Include = "can_id,can_nom,can_dur,dis_id")] Cancion cancion)
         {
             if (ModelState.IsValid)
             {
-                db.Disco.Add(disco);
+                db.Cancion.Add(cancion);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.aut_id = new SelectList(db.Autor, "aut_id", "aut_nom", disco.aut_id);
-            ViewBag.gen_id = new SelectList(db.Genero, "gen_id", "gen_nom", disco.gen_id);
-            return View(disco);
+            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb", cancion.dis_id);
+            return View(cancion);
         }
 
-        // GET: Discoes/Edit/5
+        // GET: Cancions/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Disco disco = db.Disco.Find(id);
-            if (disco == null)
+            Cancion cancion = db.Cancion.Find(id);
+            if (cancion == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.aut_id = new SelectList(db.Autor, "aut_id", "aut_nom", disco.aut_id);
-            ViewBag.gen_id = new SelectList(db.Genero, "gen_id", "gen_nom", disco.gen_id);
-            return View(disco);
+            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb", cancion.dis_id);
+            return View(cancion);
         }
 
-        // POST: Discoes/Edit/5
+        // POST: Cancions/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "dis_id,dis_alb,dis_val,gen_id,aut_id")] Disco disco)
+        public ActionResult Edit([Bind(Include = "can_id,can_nom,can_dur,dis_id")] Cancion cancion)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(disco).State = EntityState.Modified;
+                db.Entry(cancion).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.aut_id = new SelectList(db.Autor, "aut_id", "aut_nom", disco.aut_id);
-            ViewBag.gen_id = new SelectList(db.Genero, "gen_id", "gen_nom", disco.gen_id);
-            return View(disco);
+            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb", cancion.dis_id);
+            return View(cancion);
         }
 
-        // GET: Discoes/Delete/5
+        // GET: Cancions/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Disco disco = db.Disco.Find(id);
-            if (disco == null)
+            Cancion cancion = db.Cancion.Find(id);
+            if (cancion == null)
             {
                 return HttpNotFound();
             }
-            return View(disco);
+            return View(cancion);
         }
 
-        // POST: Discoes/Delete/5
+        // POST: Cancions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Disco disco = db.Disco.Find(id);
-            db.Disco.Remove(disco);
+            Cancion cancion = db.Cancion.Find(id);
+            db.Cancion.Remove(cancion);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
