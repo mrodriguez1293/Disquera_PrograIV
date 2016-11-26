@@ -9,9 +9,16 @@
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
+        <ul id="items_carro" class="nav navbar-nav navbar-right items_carro">
+            0
+        </ul>
+        <ul class="nav navbar-nav navbar-right carro">
+            <img src="img/shopping-cart.png" width="24" height="24" data-toggle="modal" data-target="#myModalCarroCompras" onclick="disco_cargar_carrocompras(-1)" />
+        </ul>
     }
 }
-else {
+else
+{
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>

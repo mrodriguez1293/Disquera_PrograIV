@@ -1,0 +1,18 @@
+﻿.carro {
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px 0px 5px 5px;
+    margin-top: 0.6%;
+}
+
+.items_carro {
+    background-color: white;
+    text-align: center;
+    width: 1.5%;
+    height: 1%;
+    color: black;
+    padding: 0.2px;
+    padding-right: 1px;
+    border-radius: 0px 5px 5px 0px;
+    margin-top: 0.6%;
+}
