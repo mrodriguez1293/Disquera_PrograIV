@@ -19,6 +19,7 @@ namespace Disquera_PrograIV.Models
         {
             this.Cancion = new HashSet<Cancion>();
             this.DiscoVenta = new HashSet<DiscoVenta>();
+            this.Carro = new HashSet<Carro>();
         }
     
         public int dis_id { get; set; }
@@ -33,5 +34,7 @@ namespace Disquera_PrograIV.Models
         public virtual Genero Genero { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiscoVenta> DiscoVenta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Carro> Carro { get; set; }
     }
 }

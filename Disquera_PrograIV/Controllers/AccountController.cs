@@ -9,12 +9,15 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Disquera_PrograIV.Models;
 
 namespace IdentitySample.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private parcial4Entities db = new parcial4Entities();
+
         public AccountController()
         {
         }
@@ -76,6 +79,11 @@ namespace IdentitySample.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //Usuario y Password es correcto
+                    var asp = db.AspNetUsers.FirstOrDefault(a => a.Email == model.Email);
+                    var usuario = db.Usuario.FirstOrDefault(u => u.asp_id == asp.Id);
+                    //Crear una variable de session
+                    HttpContext.Session.Add("Rut", usuario.usu_rut);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

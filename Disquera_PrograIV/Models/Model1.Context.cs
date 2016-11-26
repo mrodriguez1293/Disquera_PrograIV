@@ -34,5 +34,6 @@ namespace Disquera_PrograIV.Models
         public virtual DbSet<Nacionalidad> Nacionalidad { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
+        public virtual DbSet<Carro> Carro { get; set; }
     }
 }

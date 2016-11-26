@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CarroesController.cs" />
     <Compile Include="Controllers\DiscoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -187,6 +188,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cancion.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Carro.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Disco.cs">
@@ -236,6 +240,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Img\delete.png" />
     <Content Include="Img\shopping-cart.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -268,6 +273,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\scripts.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -319,6 +325,12 @@
     <Content Include="Views\Discoes\Details.cshtml" />
     <Content Include="Views\Discoes\Edit.cshtml" />
     <Content Include="Views\Discoes\Index.cshtml" />
+    <Content Include="Views\Carroes\Create.cshtml" />
+    <Content Include="Views\Carroes\Delete.cshtml" />
+    <Content Include="Views\Carroes\Details.cshtml" />
+    <Content Include="Views\Carroes\Edit.cshtml" />
+    <Content Include="Views\Carroes\Index.cshtml" />
+    <Content Include="Views\Carroes\getMiniCarro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

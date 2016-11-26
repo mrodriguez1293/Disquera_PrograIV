@@ -1,0 +1,42 @@
+﻿@model Disquera_PrograIV.Models.Carro
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Carro</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.car_can)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.car_can)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disco.dis_alb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disco.dis_alb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.usu_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.usu_nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -23,6 +23,9 @@
         <AssociationConnector Association="parcial4Model.FK_DiscoVenta_Venta" ManuallyRouted="false" />
         <AssociationConnector Association="parcial4Model.FK_Venta_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="parcial4Model.FK_Venta_Usuario1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="parcial4Model.Carro" Width="1.5" PointX="7.5" PointY="6.875" />
+        <AssociationConnector Association="parcial4Model.FK_Carro_Disco" />
+        <AssociationConnector Association="parcial4Model.FK_Carro_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

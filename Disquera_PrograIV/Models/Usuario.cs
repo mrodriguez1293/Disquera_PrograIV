@@ -19,6 +19,7 @@ namespace Disquera_PrograIV.Models
         {
             this.Venta = new HashSet<Venta>();
             this.Venta1 = new HashSet<Venta>();
+            this.Carro = new HashSet<Carro>();
         }
     
         public string usu_rut { get; set; }
@@ -31,5 +32,7 @@ namespace Disquera_PrograIV.Models
         public virtual ICollection<Venta> Venta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Venta> Venta1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Carro> Carro { get; set; }
     }
 }

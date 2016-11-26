@@ -43,6 +43,41 @@
         </footer>
     </div>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModalCarroCompras" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabelCarroCompras">Carro de compras</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="mi_carro_compras"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Mas
+                        tarde
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                            onclick="comprar_carrocompras()">
+                        Comprar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Modal -->
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

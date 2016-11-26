@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="parcial4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="parcial4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -39,6 +39,15 @@
           <Property Name="can_nom" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="can_dur" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="dis_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Carro">
+          <Key>
+            <PropertyRef Name="usu_rut" />
+            <PropertyRef Name="dis_id" />
+          </Key>
+          <Property Name="usu_rut" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="dis_id" Type="int" Nullable="false" />
+          <Property Name="car_can" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Disco">
           <Key>
@@ -114,6 +123,30 @@
             </Principal>
             <Dependent Role="Cancion">
               <PropertyRef Name="dis_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carro_Disco">
+          <End Role="Disco" Type="Self.Disco" Multiplicity="1" />
+          <End Role="Carro" Type="Self.Carro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disco">
+              <PropertyRef Name="dis_id" />
+            </Principal>
+            <Dependent Role="Carro">
+              <PropertyRef Name="dis_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carro_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Carro" Type="Self.Carro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usu_rut" />
+            </Principal>
+            <Dependent Role="Carro">
+              <PropertyRef Name="usu_rut" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -205,6 +238,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cancion" EntityType="Self.Cancion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Carro" EntityType="Self.Carro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Disco" EntityType="Self.Disco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiscoVenta" EntityType="Self.DiscoVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
@@ -218,6 +252,14 @@
           <AssociationSet Name="FK_Cancion_Disco" Association="Self.FK_Cancion_Disco">
             <End Role="Disco" EntitySet="Disco" />
             <End Role="Cancion" EntitySet="Cancion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carro_Disco" Association="Self.FK_Carro_Disco">
+            <End Role="Disco" EntitySet="Disco" />
+            <End Role="Carro" EntitySet="Carro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carro_Usuario" Association="Self.FK_Carro_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Carro" EntitySet="Carro" />
           </AssociationSet>
           <AssociationSet Name="FK_Disco_Autor" Association="Self.FK_Disco_Autor">
             <End Role="Autor" EntitySet="Autor" />
@@ -248,8 +290,7 @@
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="parcial4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -305,6 +346,7 @@
           <NavigationProperty Name="Cancion" Relationship="Self.FK_Cancion_Disco" FromRole="Disco" ToRole="Cancion" />
           <NavigationProperty Name="Genero" Relationship="Self.FK_Disco_Genero" FromRole="Disco" ToRole="Genero" />
           <NavigationProperty Name="DiscoVenta" Relationship="Self.FK_DiscoVenta_Disco" FromRole="Disco" ToRole="DiscoVenta" />
+          <NavigationProperty Name="Carro" Relationship="parcial4Model.FK_Carro_Disco" FromRole="Disco" ToRole="Carro" />
         </EntityType>
         <EntityType Name="DiscoVenta">
           <Key>
@@ -344,6 +386,7 @@
           <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_Usuario_AspNetUsers" FromRole="Usuario" ToRole="AspNetUsers" />
           <NavigationProperty Name="Venta" Relationship="Self.FK_Venta_Usuario" FromRole="Usuario" ToRole="Venta" />
           <NavigationProperty Name="Venta1" Relationship="Self.FK_Venta_Usuario1" FromRole="Usuario" ToRole="Venta" />
+          <NavigationProperty Name="Carro" Relationship="parcial4Model.FK_Carro_Usuario" FromRole="Usuario" ToRole="Carro" />
         </EntityType>
         <EntityType Name="Venta">
           <Key>
@@ -513,7 +556,51 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
+          <EntitySet Name="Carro" EntityType="parcial4Model.Carro" />
+          <AssociationSet Name="FK_Carro_Disco" Association="parcial4Model.FK_Carro_Disco">
+            <End Role="Disco" EntitySet="Disco" />
+            <End Role="Carro" EntitySet="Carro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carro_Usuario" Association="parcial4Model.FK_Carro_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Carro" EntitySet="Carro" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Carro">
+          <Key>
+            <PropertyRef Name="usu_rut" />
+            <PropertyRef Name="dis_id" />
+          </Key>
+          <Property Name="usu_rut" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="dis_id" Type="Int32" Nullable="false" />
+          <Property Name="car_can" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Disco" Relationship="parcial4Model.FK_Carro_Disco" FromRole="Carro" ToRole="Disco" />
+          <NavigationProperty Name="Usuario" Relationship="parcial4Model.FK_Carro_Usuario" FromRole="Carro" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_Carro_Disco">
+          <End Type="parcial4Model.Disco" Role="Disco" Multiplicity="1" />
+          <End Type="parcial4Model.Carro" Role="Carro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disco">
+              <PropertyRef Name="dis_id" />
+            </Principal>
+            <Dependent Role="Carro">
+              <PropertyRef Name="dis_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carro_Usuario">
+          <End Type="parcial4Model.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="parcial4Model.Carro" Role="Carro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usu_rut" />
+            </Principal>
+            <Dependent Role="Carro">
+              <PropertyRef Name="usu_rut" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -613,6 +700,15 @@
                 <ScalarProperty Name="ven_tot" ColumnName="ven_tot" />
                 <ScalarProperty Name="usu_rut_eje" ColumnName="usu_rut_eje" />
                 <ScalarProperty Name="usu_rut_cli" ColumnName="usu_rut_cli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carro">
+            <EntityTypeMapping TypeName="parcial4Model.Carro">
+              <MappingFragment StoreEntitySet="Carro">
+                <ScalarProperty Name="car_can" ColumnName="car_can" />
+                <ScalarProperty Name="dis_id" ColumnName="dis_id" />
+                <ScalarProperty Name="usu_rut" ColumnName="usu_rut" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
