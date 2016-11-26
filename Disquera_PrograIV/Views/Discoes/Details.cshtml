@@ -1,0 +1,50 @@
+﻿@model Disquera_PrograIV.Models.Disco
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Disco</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dis_alb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dis_alb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dis_val)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dis_val)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Autor.aut_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Autor.aut_nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genero.gen_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genero.gen_nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.dis_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
