@@ -1,0 +1,42 @@
+﻿@model Disquera_PrograIV.Models.Usuario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.usu_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usu_nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usu_ape)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usu_ape)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUsers.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.usu_rut }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
