@@ -6,9 +6,12 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -20,27 +23,34 @@
         <th>
             @Html.DisplayNameFor(model => model.Disco.dis_alb)
         </th>
-        <th></th>
+        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <th></th>
+        }
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.can_nom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.can_dur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Disco.dis_alb)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.can_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.can_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.can_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.can_nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.can_dur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disco.dis_alb)
+            </td>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.can_id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.can_id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.can_id })
+                </td>
+            }
+        </tr>
+    }
 
 </table>
 <p>

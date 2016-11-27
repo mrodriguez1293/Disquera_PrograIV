@@ -5,10 +5,11 @@
 }
 
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (Request.IsAuthenticated && User.IsInRole("Admin")) {
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -36,7 +37,7 @@
             @Html.DisplayFor(modelItem => item.dis_val)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Autor.aut_nom)
+            @Html.DisplayFor(modelItem => item.Autor.aut_nom) @Html.DisplayFor(modelItem => item.Autor.aut_ape)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Genero.gen_nom)
