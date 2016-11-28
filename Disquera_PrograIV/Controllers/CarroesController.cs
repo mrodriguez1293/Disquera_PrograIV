@@ -38,6 +38,17 @@ namespace Disquera_PrograIV.Controllers
             var carro = db.Carro.Include(c => c.Disco).Include(c => c.Usuario);
             return View(carro.ToList().Where(c => c.usu_rut == usu_rut).ToList());
         }
+        
+        public String Guardar([Bind(Include = "usu_rut,dis_id,car_can")] Carro carro)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Carro.Add(carro);
+                db.SaveChanges();
+                return "Dato almacenado correctamente";
+            }
+            return "Error al intentar almacenar";
+        }
 
         // GET: Carroes/Details/5
         public ActionResult Details(string id)

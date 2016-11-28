@@ -57,7 +57,8 @@
 
                 @Html.ActionLink("Ver Canciones", "canciones", new { id = item.dis_id })
                 @*@Html.ActionLink("Detalle", "Details", new { id = item.dis_id })*@
-                @Html.ActionLink(" Comprar", "#", new { onclick = "cargar_carrocompras(" + @item.dis_id+")" }, new { data_toggle = "modal", data_target = "#myModal" })
+                @Html.ActionLink(" Comprar", "#", new { onclick = "cargar_carrocompras(" + @item.dis_id+",'"+ @ViewBag.rut+ "')" }, new { data_toggle = "modal", data_target = "#myModal" })
+                <a href="#" onclick="cargar_carrocompras(@item.dis_id,'@ViewBag.rut')" data-toggle = "modal", data-target = "#myModal">Comprar</a>
             }
         </td>
     </tr>

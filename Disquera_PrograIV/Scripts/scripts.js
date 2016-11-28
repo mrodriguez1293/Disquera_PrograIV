@@ -10,7 +10,7 @@ function getItemsCarro() {
     });
 }
 
-function cargar_carrocompras(dis_id) {
+function cargar_carrocompras(dis_id, usu_rut) {
     if (dis_id == -1) {
         getItemsCarro();
         // Carga el carro
@@ -24,19 +24,21 @@ function cargar_carrocompras(dis_id) {
         });
     } else {
         // Agrega el producto al carro
-        $.post("Carroes/guardar", {
-            dis_id: dis_id
+        $.post("Carroes/Guardar", {
+            usu_rut: usu_rut,
+            dis_id: dis_id,
+            car_can: 0
         }, function (dato) {
             getItemsCarro();
             // Carga al carro
-            $.ajax({
-                url: base_url + "index.php/c_getPage/mi_carrocompras",
-                data: {},
-                success: function (pagina) {
-                    $("#mi_carro_compras").html(pagina);
-                },
-                method: "post"
-            });
+            //$.ajax({
+            //    url: base_url + "index.php/c_getPage/mi_carrocompras",
+            //    data: {},
+            //    success: function (pagina) {
+            //        $("#mi_carro_compras").html(pagina);
+            //    },
+            //    method: "post"
+            //});
 
         }, "json");
 

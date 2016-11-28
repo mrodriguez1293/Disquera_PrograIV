@@ -22,6 +22,7 @@ namespace Disquera_PrograIV.Controllers
         // GET: Discoes
         public ActionResult Index()
         {
+            ViewBag.rut = HttpContext.Session["Rut"].ToString();            
             var disco = db.Disco.Include(d => d.Autor).Include(d => d.Genero);
             return View(disco.ToList());
         }
