@@ -51,7 +51,8 @@ function carrocompras_eliminar(dis_id) {
     $.post("Carroes/Eliminar", {
         dis_id: dis_id
     }, function (dato) {
-        getItemsCarro()
+        getItemsCarro();
+        cargar_carrocompras(-1, 0, 0);
         // Carga el carro
         //$.ajax({
         //    url: base_url + "index.php/c_getPage/mi_carrocompras",
