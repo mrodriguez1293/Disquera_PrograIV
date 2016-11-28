@@ -170,10 +170,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AutorsController.cs" />
     <Compile Include="Controllers\CancionsController.cs" />
     <Compile Include="Controllers\CarroesController.cs" />
     <Compile Include="Controllers\DiscoesController.cs" />
     <Compile Include="Controllers\DiscoVentasController.cs" />
+    <Compile Include="Controllers\GeneroesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -359,6 +361,18 @@
     <Content Include="Views\Usuarios\Details.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Autors\Create.cshtml" />
+    <Content Include="Views\Autors\Delete.cshtml" />
+    <Content Include="Views\Autors\Details.cshtml" />
+    <Content Include="Views\Autors\Edit.cshtml" />
+    <Content Include="Views\Autors\Index.cshtml" />
+    <Content Include="Views\Generoes\Create.cshtml" />
+    <Content Include="Views\Generoes\Delete.cshtml" />
+    <Content Include="Views\Generoes\Details.cshtml" />
+    <Content Include="Views\Generoes\Edit.cshtml" />
+    <Content Include="Views\Generoes\Index.cshtml" />
+    <Content Include="Views\Discoes\lista_discos1.cshtml" />
+    <Content Include="Views\Discoes\lista_discos2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

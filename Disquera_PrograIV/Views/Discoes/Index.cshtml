@@ -4,12 +4,19 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-@if (Request.IsAuthenticated && User.IsInRole("Admin")) {
+<br/>
+<h2>Discos</h2>
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
     <p>
         @Html.ActionLink("Create New", "Create")
-    </p>
-}
+    </p>}
+else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>}
+
 <table class="table">
     <tr>
         <th>
@@ -33,12 +40,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.dis_alb)
         </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.dis_val)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Autor.aut_nom) @Html.DisplayFor(modelItem => item.Autor.aut_ape)
         </td>
+   
         <td>
             @Html.DisplayFor(modelItem => item.Genero.gen_nom)
         </td>
@@ -50,11 +59,11 @@
             }
             else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
             {
-                @Html.ActionLink("Detalle", "Details", new { id = item.dis_id })
+                @Html.ActionLink("Detalles Disco", "canciones", new { id = item.dis_id })
             }
             else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
             {
-
+              
                 @Html.ActionLink("Ver Canciones", "canciones", new { id = item.dis_id })
                 @*@Html.ActionLink("Detalle", "Details", new { id = item.dis_id })*@
                 @Html.ActionLink(" Comprar", "#", new { onclick = "cargar_carrocompras(" + @item.dis_id+",'"+ @ViewBag.rut+ "')" }, new { data_toggle = "modal", data_target = "#myModal" })

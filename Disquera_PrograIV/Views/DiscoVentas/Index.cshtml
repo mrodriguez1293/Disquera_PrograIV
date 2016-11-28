@@ -4,11 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<br/>
+@if (Request.IsAuthenticated && User.IsInRole("Admin")) { 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+}else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+{
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>}
 <table class="table">
     <tr>
         <th>

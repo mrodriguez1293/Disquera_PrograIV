@@ -11,7 +11,11 @@
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
-}
+} else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>}
 <table class="table">
     <tr>
         <th>

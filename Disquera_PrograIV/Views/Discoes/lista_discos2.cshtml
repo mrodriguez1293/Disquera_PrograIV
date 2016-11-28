@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Disquera_PrograIV.Models.Disco>
+
+@{
+    ViewBag.Title = "lista_discos2";
+}
+
+<br/>
+<h2>Discos del Genero : @ViewBag.genero</h2>
+
+@if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>}
+else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
+{
+
+}
+<table class="table">
+    <tr>
+        <th>
+           Album 
+        </th>
+        <th>
+            Valor
+        </th>
+        <th>
+          Autor
+        </th>
+   
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.dis_alb)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dis_val)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Autor.aut_nom) @Html.DisplayFor(modelItem => item.Autor.aut_ape)
+        </td>
+   
+        <td>
+            @if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+            {
+            @Html.ActionLink("Edit", "Edit", new { id = item.dis_id }) 
+            @Html.ActionLink("Details", "Details", new { id = item.dis_id }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.dis_id })
+            }
+            else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
+            {
+
+            }
+        </td>
+    </tr>
+            }
+
+</table>

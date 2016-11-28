@@ -29,13 +29,15 @@
                     else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
                     {
                         <li>@Html.ActionLink("Discos", "Index", "Discoes")</li>
-                        @*<li>@Html.ActionLink("Autores", "Index", "Autores")</li>
-                        <li>@Html.ActionLink("Generos", "Index", "Generos")</li>*@
+                        <li>@Html.ActionLink("Autores", "Index", "Autors")</li>
+                        <li>@Html.ActionLink("Generos", "Index", "Generoes")</li>
                         <li>@Html.ActionLink("Ventas", "Index", "Ventas")</li>
 
                     }
                     else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
                     {
+                    <li>@Html.ActionLink("Autores", "Index", "Autors")</li>
+                    <li>@Html.ActionLink("Generos", "Index", "Generoes")</li>
                         @*<li>@Html.ActionLink("Discos", "Index", "Discos")</li>*@
                         <li>@Html.ActionLink("Compras", "yo_compro", "Ventas")</li>
                     }

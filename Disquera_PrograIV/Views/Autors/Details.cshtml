@@ -1,0 +1,42 @@
+﻿@model Disquera_PrograIV.Models.Autor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Autor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.aut_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aut_nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aut_ape)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aut_ape)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nacionalidad.nac_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nacionalidad.nac_nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.aut_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

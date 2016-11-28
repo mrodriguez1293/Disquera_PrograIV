@@ -13,16 +13,33 @@ namespace Disquera_PrograIV.Controllers
     public class DiscoesController : Controller
     {
         private parcial4Entities db = new parcial4Entities();
+        public ActionResult lista_discos2(int id)
+        {
+            Genero gen = db.Genero.Find(id);
+            ViewBag.genero = gen.gen_nom;
+            var disco = db.Disco.Include(d => d.Autor).Include(d => d.Genero);
+            return View(disco.Where(e => e.gen_id == id).ToList());
+        }
+        public ActionResult lista_discos1(int id) {
+            Autor aut = db.Autor.Find(id);
+            ViewBag.autor = aut.aut_nom;
+            ViewBag.autor_ape = aut.aut_ape;
+            var disco = db.Disco.Include(d => d.Autor).Include(d => d.Genero);
+            return View(disco.Where(e => e.aut_id == id).ToList());
+        }
+
         public ActionResult canciones(int? id)
         {
 
             return RedirectToAction("Index", "Cancions", new { id = id });
 
         }
+ 
+       
         // GET: Discoes
         public ActionResult Index()
         {
-            ViewBag.rut = HttpContext.Session["Rut"].ToString();            
+            ViewBag.rut = HttpContext.Session["Rut"].ToString();
             var disco = db.Disco.Include(d => d.Autor).Include(d => d.Genero);
             return View(disco.ToList());
         }
