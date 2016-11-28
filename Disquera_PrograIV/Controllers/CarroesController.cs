@@ -50,6 +50,18 @@ namespace Disquera_PrograIV.Controllers
             return "Error al intentar almacenar";
         }
 
+        public ActionResult Eliminar(string id)
+        {
+            Carro carro = db.Carro.Find(id);
+            db.Carro.Remove(carro);
+            db.SaveChanges();
+
+            //Leer la variable de session que contiene el Rut
+            string usu_rut = HttpContext.Session["Rut"].ToString();
+            var carro1 = db.Carro.Include(c => c.Disco).Include(c => c.Usuario);
+            return View(carro1.ToList().Where(c => c.usu_rut == usu_rut).ToList());
+        }
+
         // GET: Carroes/Details/5
         public ActionResult Details(string id)
         {
