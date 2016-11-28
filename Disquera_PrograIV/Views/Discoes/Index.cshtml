@@ -57,7 +57,7 @@
 
                 @Html.ActionLink("Ver Canciones", "canciones", new { id = item.dis_id })
                 @*@Html.ActionLink("Detalle", "Details", new { id = item.dis_id })*@
-                @Html.ActionLink(" Comprar", "#", new { onclick = "cargarAgregarCarro()" }, new { data_toggle = "modal", data_target = "#myModal" })
+                @Html.ActionLink(" Comprar", "#", new { onclick = "cargar_carrocompras(" + @item.dis_id+")" }, new { data_toggle = "modal", data_target = "#myModal" })
             }
         </td>
     </tr>
@@ -106,9 +106,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    function cargarAgregarCarro() {
-        return;
-    }
-</script>

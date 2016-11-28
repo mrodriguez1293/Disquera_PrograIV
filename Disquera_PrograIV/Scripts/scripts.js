@@ -24,7 +24,7 @@ function cargar_carrocompras(dis_id) {
         });
     } else {
         // Agrega el producto al carro
-        $.post(base_url + "index.php/c_carro/guardar", {
+        $.post("Carroes/guardar", {
             dis_id: dis_id
         }, function (dato) {
             getItemsCarro();
