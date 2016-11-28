@@ -66,8 +66,8 @@ else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
               
                 @Html.ActionLink("Ver Canciones", "canciones", new { id = item.dis_id })
                 @*@Html.ActionLink("Detalle", "Details", new { id = item.dis_id })*@
-                @Html.ActionLink(" Comprar", "#", new { onclick = "cargar_carrocompras(" + @item.dis_id+",'"+ @ViewBag.rut+ "')" }, new { data_toggle = "modal", data_target = "#myModal" })
-                <a href="#" onclick="cargar_carrocompras(@item.dis_id,'@ViewBag.rut')" data-toggle = "modal", data-target = "#myModal">Comprar</a>
+                @*@Html.ActionLink(" Comprar", "#", new { onclick = "cargar_carrocompras(" + @item.dis_id+",'"+ @ViewBag.rut+ "')" }, new { data_toggle = "modal", data_target = "#myModal" })*@
+                <a href="#" onclick="cargar_carrocompras(@item.dis_id,'@ViewBag.rut','@item.dis_alb')" data-toggle = "modal", data-target = "#myModal">Comprar</a>
             }
         </td>
     </tr>
@@ -83,19 +83,21 @@ else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Agregar Producto al Carro</h4>
             </div>
-            <div class="modal-body">
+            <div id="modal-body-cargar-carro" class="modal-body">
 
 
 
 
                 <form>
+                    <input id="usu_rut" type="hidden"/>
+                    <input id="dis_id" type="hidden" />
                     <div class="form-group">
                         <label for="dis_alb">Producto</label>
                         <input type="text" class="form-control" id="dis_alb" disabled>
                     </div>
                     <div class="form-group">
                         <label for="cantidad">Cantidad</label>
-                        <select class="form-control" id="cantidad">
+                        <select class="form-control" id="car_can">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -106,12 +108,14 @@ else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
                 </form>
 
 
+                <div id="mensaje_agregar">
+                 </div>
 
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Agregar</button>
+                <button type="button" class="btn btn-primary" onclick="agregarAlCarro()">Agregar</button>
             </div>
         </div>
     </div>
