@@ -11,10 +11,14 @@ namespace Disquera_PrograIV.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Carro
     {
+        [Key, ForeignKey("Usuario"), Column(Order = 0)]
         public string usu_rut { get; set; }
+        [Key, ForeignKey("Disco"), Column(Order = 1)]
         public int dis_id { get; set; }
         public int car_can { get; set; }
     

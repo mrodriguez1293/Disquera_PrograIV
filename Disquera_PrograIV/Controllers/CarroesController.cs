@@ -48,7 +48,17 @@ namespace Disquera_PrograIV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Carro.Add(carro);
+                //db.Carro.Add(carro);
+                if (db.Carro.Find(carro.usu_rut, carro.dis_id) == null)
+                {
+                    db.Carro.Add(carro);
+                }
+                else
+                {
+                    Carro carroa = db.Carro.Find(carro.usu_rut, carro.dis_id);
+                    carroa.car_can = carro.car_can + carroa.car_can;
+                    db.Entry(carroa).State = EntityState.Modified;
+                }
                 db.SaveChanges();
                 return "Dato almacenado correctamente";
             }
@@ -57,16 +67,19 @@ namespace Disquera_PrograIV.Controllers
 
         public string Eliminar(int dis_id)
         {
-            var carro = db.Carro.Include(c => c.Disco).Include(c => c.Usuario);
+            //var carro = db.Carro.Include(c => c.Disco).Include(c => c.Usuario);
 
-            //Vaciamos el carro para el usuario
-            foreach (var item in carro.ToList())
-            {
-                if (item.usu_rut == HttpContext.Session["Rut"].ToString() && item.dis_id== dis_id)
-                {
-                    db.Carro.Remove(item);
-                }
-            }
+            ////Vaciamos el carro para el usuario
+            //foreach (var item in carro.ToList())
+            //{
+            //    if (item.usu_rut == HttpContext.Session["Rut"].ToString() && item.dis_id== dis_id)
+            //    {
+            //        db.Carro.Remove(item);
+            //    }
+            //}
+            string usu_rut = HttpContext.Session["Rut"].ToString();
+            Carro carro = db.Carro.Find(usu_rut, dis_id);
+            db.Carro.Remove(carro);
             db.SaveChanges();
 
             return HttpContext.Session["Rut"].ToString() + " " + dis_id + " Eliminado Con Exito";
