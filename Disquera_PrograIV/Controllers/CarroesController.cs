@@ -102,7 +102,17 @@ namespace Disquera_PrograIV.Controllers
                 }
             }
 
-            return "Veenta finalizada";
+            //Vaciamos el carro para el usuario
+            foreach (var item in carro.ToList())
+            {
+                if (item.usu_rut == HttpContext.Session["Rut"].ToString())
+                {
+                    db.Carro.Remove(item);
+                }
+            }
+            db.SaveChanges();
+
+            return "Venta finalizada y a espera de aprovación.";
         }
 
         // GET: Carroes/Details/5
