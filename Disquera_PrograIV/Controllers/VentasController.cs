@@ -40,21 +40,23 @@ namespace Disquera_PrograIV.Controllers
             //return View("Index");
             return RedirectToAction("Index");
         }
-        
+        public ActionResult pend()
+        {
+            var venta = db.Venta.Include(v => v.Usuario).Include(v => v.Usuario1);
+       
+            return View(venta.Where(e => e.usu_rut_eje == null).ToList());
+
+
+        }
         // GET: Ventas
         public ActionResult Index()
         {
             var venta = db.Venta.Include(v => v.Usuario).Include(v => v.Usuario1);
-            //leer la variable session qe contiene rut
+            var venta = db.Venta.Include(v => v.Usuario).Include(v => v.Usuario1);
+            ////leer la variable session qe contiene rut
             string rut = HttpContext.Session["Rut"].ToString();
             ViewBag.rut = rut;
-            //Si el usuario es Cliente, listamos solo sus comrpras
-            if (Request.IsAuthenticated && User.IsInRole("Cliente"))
-            {
-                return View(venta.Where(e => e.usu_rut_eje == rut).ToList());
-            }
-
-            return View(venta.ToList());
+            return View(venta.Where(e => e.usu_rut_eje == rut).ToList());
         }
 
         // GET: Ventas/Details/5

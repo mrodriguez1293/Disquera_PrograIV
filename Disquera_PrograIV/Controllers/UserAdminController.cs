@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Disquera_PrograIV.Models;
 
 namespace IdentitySample.Controllers
 {
@@ -86,18 +87,23 @@ namespace IdentitySample.Controllers
         //
         // POST: /Users/Create
         [HttpPost]
-        public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
+        public async Task<ActionResult> Create(RegistroViewModel userViewModel, params string[] selectedRoles)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email };
-                var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
+                var user = new ApplicationUser { UserName = userViewModel.RegisterViewModel.Email, Email = userViewModel.RegisterViewModel.Email };
+                var adminresult = await UserManager.CreateAsync(user, userViewModel.RegisterViewModel.Password);
 
                 //Add User to the selected Roles 
                 if (adminresult.Succeeded)
                 {
                     if (selectedRoles != null)
                     {
+                        parcial4Entities db = new parcial4Entities();
+                        userViewModel.Usuario.asp_id = user.Id;
+                        db.Usuario.Add(userViewModel.Usuario);
+                        db.SaveChanges();
+
                         var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
                         if (!result.Succeeded)
                         {
@@ -119,6 +125,7 @@ namespace IdentitySample.Controllers
             ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
             return View();
         }
+
 
         //
         // GET: /Users/Edit/1

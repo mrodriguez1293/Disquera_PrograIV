@@ -42,6 +42,7 @@
                     {
                         @*<li>@Html.ActionLink("Autores", "Index", "Autors")</li>*@
                         <li>@Html.ActionLink("Ventas", "Index", "Ventas")</li>
+                        <li>@Html.ActionLink("Pendientes", "pend", "Ventas")</li>
 
                     }
                     else if (Request.IsAuthenticated && User.IsInRole("Cliente"))

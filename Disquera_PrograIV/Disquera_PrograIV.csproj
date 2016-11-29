@@ -380,6 +380,7 @@
     <Content Include="Views\Nacionalidads\Details.cshtml" />
     <Content Include="Views\Nacionalidads\Edit.cshtml" />
     <Content Include="Views\Nacionalidads\Index.cshtml" />
+    <Content Include="Views\Ventas\pend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
