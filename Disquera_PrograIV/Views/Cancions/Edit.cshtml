@@ -49,5 +49,6 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Back to List", "Index")*@
+    @Html.ActionLink("Volver Atrás", null, null, null, new { href = Request.UrlReferrer })
 </div>
