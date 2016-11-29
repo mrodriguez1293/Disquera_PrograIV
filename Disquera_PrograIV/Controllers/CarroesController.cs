@@ -63,6 +63,48 @@ namespace Disquera_PrograIV.Controllers
             return View(carro1.ToList().Where(c => c.usu_rut == usu_rut).ToList());
         }
 
+        public String Comprar()
+        {
+            var carro = db.Carro.Include(c => c.Disco).Include(c => c.Usuario);
+            double total = 0;
+            Venta aGuardar;
+            DiscoVenta aGuardar1;
+
+            foreach (var item in carro.ToList())
+            {
+                if(item.usu_rut == HttpContext.Session["Rut"].ToString())
+                {
+                    total += item.car_can * item.Disco.dis_val;
+                }
+            }
+
+            //Generamos la nueva venta
+            aGuardar = new Venta();
+            aGuardar.ven_date = DateTime.Today;
+            aGuardar.ven_tot = total;
+            aGuardar.usu_rut_cli = HttpContext.Session["Rut"].ToString();
+
+            db.Venta.Add(aGuardar);
+            db.SaveChanges();
+
+            //Obtenemos el id de la última venta generada
+            int ultimo = db.Venta.Max(v => v.ven_id);
+
+            foreach (var item in carro.ToList())
+            {
+                if(item.usu_rut == HttpContext.Session["Rut"].ToString())
+                {
+                    aGuardar1 = new DiscoVenta();
+
+                    aGuardar1.ven_id = ultimo;
+                    aGuardar1.dis_id = item.dis_id;
+                    aGuardar1.dive_can = item.car_can;
+                }
+            }
+
+            return "Veenta finalizada";
+        }
+
         // GET: Carroes/Details/5
         public ActionResult Details(string id)
         {

@@ -66,3 +66,10 @@ function carrocompras_eliminar(dis_id) {
         //});
     }, "json");
 }
+
+//Finaliza el carro de compras
+function comprar_carrocompras() {
+    $.post("Carroes/Comprar", {}, function (pagina) {
+        $("#mi_carro_compras").html(pagina);
+    });
+}
