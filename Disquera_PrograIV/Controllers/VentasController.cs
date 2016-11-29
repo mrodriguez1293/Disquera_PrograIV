@@ -43,7 +43,11 @@ namespace Disquera_PrograIV.Controllers
         public ActionResult pend()
         {
             var venta = db.Venta.Include(v => v.Usuario).Include(v => v.Usuario1);
-       
+
+            ////leer la variable session qe contiene rut
+            string rut = HttpContext.Session["Rut"].ToString();
+            ViewBag.rut = rut;
+
             return View(venta.Where(e => e.usu_rut_eje == null).ToList());
 
 

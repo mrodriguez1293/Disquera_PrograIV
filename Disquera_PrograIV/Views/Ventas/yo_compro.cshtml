@@ -80,7 +80,7 @@
                     @Html.ActionLink("Detalle Compra", "venta_eje", new { id = item.ven_id })
                 }
                 <!-- ESTO NO ESTA FUNCIONANDO POR ALGUNA RAZÓN -->
-                @Html.ActionLink("Detalle Compra", "Index", "DiscoVentas", new { id = item.ven_id })
+                @Html.ActionLink("Detalle Compra", "Index", "DiscoVentas", new { id = item.ven_id }, null)
             </td>
         </tr>
     }
