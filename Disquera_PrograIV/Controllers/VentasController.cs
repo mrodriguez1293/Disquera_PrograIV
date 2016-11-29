@@ -30,6 +30,9 @@ namespace Disquera_PrograIV.Controllers
         {
             if (ModelState.IsValid)
             {
+                string usu_rut = HttpContext.Session["Rut"].ToString();
+                venta.usu_rut_eje = usu_rut;
+
                 db.Entry(venta).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -45,16 +48,12 @@ namespace Disquera_PrograIV.Controllers
         public ActionResult Index()
         {
             var venta = db.Venta.Include(v => v.Usuario).Include(v => v.Usuario1);
-            //leer la variable session qe contiene rut
-            string rut = HttpContext.Session["Rut"].ToString();
-            ViewBag.rut = rut;
-            //Si el usuario es Cliente, listamos solo sus comrpras
-            if (Request.IsAuthenticated && User.IsInRole("Cliente"))
-            {
-                return View(venta.Where(e => e.usu_rut_eje == rut).ToList());
-            }
-
-            return View(venta.ToList());
+            ////leer la variable session qe contiene rut
+            //string rut = HttpContext.Session["Rut"].ToString();
+            //ViewBag.rut = rut;
+            return View(venta.Where(e => e.usu_rut_eje  == null).ToList());
+          
+          
         }
 
         // GET: Ventas/Details/5
