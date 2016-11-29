@@ -9,13 +9,9 @@
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Crear Nueva", "Create")
     </p>
-} else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>}
+}
 <table class="table">
     <tr>
         <th>
@@ -48,9 +44,9 @@
             @if (Request.IsAuthenticated && User.IsInRole("Admin"))
             {
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.can_id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.can_id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.can_id })
+                    @Html.ActionLink("Editar | ", "Edit", new { id = item.can_id })
+                    @*@Html.ActionLink("Detalle", "Details", new { id = item.can_id }) |*@
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.can_id })
                 </td>
             }
         </tr>
@@ -58,5 +54,6 @@
 
 </table>
 <p>
-    @Html.ActionLink("Ver Discos ", "ListaDiscos")
+    @*@Html.ActionLink("Ver Discos ", "ListaDiscos")*@
+    @Html.ActionLink("Volver Atrás", null, null, null, new { href = Request.UrlReferrer })
 </p>

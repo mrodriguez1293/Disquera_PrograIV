@@ -51,7 +51,7 @@ namespace Disquera_PrograIV.Controllers
             //Si el usuario es Cliente, listamos solo sus comrpras
             if (Request.IsAuthenticated && User.IsInRole("Cliente"))
             {
-                return View(venta.Where(e => e.usu_rut_eje == rut).ToList());
+                return View(venta.Where(e => e.usu_rut_cli == rut).ToList());
             }
 
             return View(venta.ToList());
