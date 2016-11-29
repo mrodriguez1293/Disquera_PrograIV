@@ -17,6 +17,7 @@ namespace Disquera_PrograIV.Controllers
         {
             Genero gen = db.Genero.Find(id);
             ViewBag.genero = gen.gen_nom;
+            ViewBag.rut = HttpContext.Session["Rut"].ToString();
             var disco = db.Disco.Include(d => d.Autor).Include(d => d.Genero);
             return View(disco.Where(e => e.gen_id == id).ToList());
         }
@@ -24,6 +25,7 @@ namespace Disquera_PrograIV.Controllers
             Autor aut = db.Autor.Find(id);
             ViewBag.autor = aut.aut_nom;
             ViewBag.autor_ape = aut.aut_ape;
+            ViewBag.rut = HttpContext.Session["Rut"].ToString();
             var disco = db.Disco.Include(d => d.Autor).Include(d => d.Genero);
             return View(disco.Where(e => e.aut_id == id).ToList());
         }

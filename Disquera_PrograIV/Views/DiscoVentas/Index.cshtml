@@ -4,53 +4,61 @@
     ViewBag.Title = "Index";
 }
 
-<br/>
-@if (Request.IsAuthenticated && User.IsInRole("Admin")) { 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-}else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+<br />
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>}
+    <p>
+        @Html.ActionLink("Crear Nuevo", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
             Cantidad
         </th>
         <th>
-          Album
+            Album
         </th>
-@if (User.IsInRole("Admin") || User.IsInRole("Ejecutivo"))
-{
-        <th>
-            @Html.DisplayNameFor(model => model.Venta.usu_rut_eje)
-        </th>
-}
-        <th></th>
+        @*@if (User.IsInRole("Admin") || User.IsInRole("Ejecutivo"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Venta.usu_rut_eje)
+                </th>
+            }*@
+        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <th></th>
+        }
+
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.dive_can)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Disco.dis_alb)
-        </td>
-@if (User.IsInRole("Admin") || User.IsInRole("Ejecutivo"))
-{
-        <td>
-            @Html.DisplayFor(modelItem => item.Venta.usu_rut_eje)
-        </td>
-}
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.dive_can)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disco.dis_alb)
+            </td>
+            @*@if (User.IsInRole("Admin") || User.IsInRole("Ejecutivo"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Venta.usu_rut_eje)
+                    </td>
+                }*@
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            }
+
+        </tr>
+    }
 
 </table>
+
+@Html.ActionLink("Volver Atrás", null, null, null, new { href = Request.UrlReferrer })

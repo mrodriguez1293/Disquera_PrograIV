@@ -10,125 +10,107 @@ using Disquera_PrograIV.Models;
 
 namespace Disquera_PrograIV.Controllers
 {
-    public class CancionsController : Controller
+    public class NacionalidadsController : Controller
     {
         private parcial4Entities db = new parcial4Entities();
-        public ActionResult ListaDiscos()
-        {
 
-            return RedirectToAction("Index", "Discoes");
-        }
-        // GET: Cancions
-        public ActionResult Index(int id)
+        // GET: Nacionalidads
+        public ActionResult Index()
         {
-            var cancion = db.Cancion.Include(c => c.Disco);
-
-            if (id == -1)
-            {
-                return View(cancion.ToList());
-            }
-            Disco discos = db.Disco.Find(id);
-            ViewBag.al = discos.dis_alb;
-            ViewBag.cod = discos.dis_id;
-     
-            return View(cancion.Where(e => e.dis_id == id).ToList());
+            return View(db.Nacionalidad.ToList());
         }
 
-        // GET: Cancions/Details/5
+        // GET: Nacionalidads/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cancion cancion = db.Cancion.Find(id);
-            if (cancion == null)
+            Nacionalidad nacionalidad = db.Nacionalidad.Find(id);
+            if (nacionalidad == null)
             {
                 return HttpNotFound();
             }
-            return View(cancion);
+            return View(nacionalidad);
         }
 
-        // GET: Cancions/Create
+        // GET: Nacionalidads/Create
         public ActionResult Create()
         {
-            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb");
             return View();
         }
 
-        // POST: Cancions/Create
+        // POST: Nacionalidads/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "can_id,can_nom,can_dur,dis_id")] Cancion cancion)
+        public ActionResult Create([Bind(Include = "nac_id,nac_nom")] Nacionalidad nacionalidad)
         {
             if (ModelState.IsValid)
             {
-                db.Cancion.Add(cancion);
+                db.Nacionalidad.Add(nacionalidad);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb", cancion.dis_id);
-            return View(cancion);
+            return View(nacionalidad);
         }
 
-        // GET: Cancions/Edit/5
+        // GET: Nacionalidads/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cancion cancion = db.Cancion.Find(id);
-            if (cancion == null)
+            Nacionalidad nacionalidad = db.Nacionalidad.Find(id);
+            if (nacionalidad == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb", cancion.dis_id);
-            return View(cancion);
+            return View(nacionalidad);
         }
 
-        // POST: Cancions/Edit/5
+        // POST: Nacionalidads/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "can_id,can_nom,can_dur,dis_id")] Cancion cancion)
+        public ActionResult Edit([Bind(Include = "nac_id,nac_nom")] Nacionalidad nacionalidad)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cancion).State = EntityState.Modified;
+                db.Entry(nacionalidad).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.dis_id = new SelectList(db.Disco, "dis_id", "dis_alb", cancion.dis_id);
-            return View(cancion);
+            return View(nacionalidad);
         }
 
-        // GET: Cancions/Delete/5
+        // GET: Nacionalidads/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cancion cancion = db.Cancion.Find(id);
-            if (cancion == null)
+            Nacionalidad nacionalidad = db.Nacionalidad.Find(id);
+            if (nacionalidad == null)
             {
                 return HttpNotFound();
             }
-            return View(cancion);
+            return View(nacionalidad);
         }
 
-        // POST: Cancions/Delete/5
+        // POST: Nacionalidads/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cancion cancion = db.Cancion.Find(id);
-            db.Cancion.Remove(cancion);
+            Nacionalidad nacionalidad = db.Nacionalidad.Find(id);
+            db.Nacionalidad.Remove(nacionalidad);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

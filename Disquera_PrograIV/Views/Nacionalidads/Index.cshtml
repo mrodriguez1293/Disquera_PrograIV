@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Disquera_PrograIV.Models.Nacionalidad>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Crear Nueva", "Create")
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nac_nom)
+        </th>
+        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <th></th>
+        }
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nac_nom)
+            </td>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.nac_id }) |
+                    @*@Html.ActionLink("Detalle", "Details", new { id=item.nac_id }) |*@
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.nac_id })
+                </td>
+            }
+
+        </tr>
+    }
+
+</table>

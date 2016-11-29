@@ -178,6 +178,7 @@
     <Compile Include="Controllers\GeneroesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NacionalidadsController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -249,6 +250,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Img\delete.png" />
     <Content Include="Img\shopping-cart.png" />
+    <Content Include="Img\wallpaper-1571107.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -373,6 +375,11 @@
     <Content Include="Views\Generoes\Index.cshtml" />
     <Content Include="Views\Discoes\lista_discos1.cshtml" />
     <Content Include="Views\Discoes\lista_discos2.cshtml" />
+    <Content Include="Views\Nacionalidads\Create.cshtml" />
+    <Content Include="Views\Nacionalidads\Delete.cshtml" />
+    <Content Include="Views\Nacionalidads\Details.cshtml" />
+    <Content Include="Views\Nacionalidads\Edit.cshtml" />
+    <Content Include="Views\Nacionalidads\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,58 +4,101 @@
     ViewBag.Title = "lista_discos2";
 }
 
-<br/>
-<h2>Discos del Genero : @ViewBag.genero</h2>
+<br />
+<h2>Discos del Género : @ViewBag.genero</h2>
 
-@if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>}
-else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
-{
-
+        @Html.ActionLink("Crear Nuevo", "Create")
+    </p>
 }
 <table class="table">
     <tr>
         <th>
-           Album 
+            Autor
+        </th>
+        <th>
+            Album
         </th>
         <th>
             Valor
         </th>
-        <th>
-          Autor
-        </th>
-   
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.dis_alb)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dis_val)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Autor.aut_nom) @Html.DisplayFor(modelItem => item.Autor.aut_ape)
-        </td>
-   
-        <td>
-            @if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
-            {
-            @Html.ActionLink("Edit", "Edit", new { id = item.dis_id }) 
-            @Html.ActionLink("Details", "Details", new { id = item.dis_id }) 
-            @Html.ActionLink("Delete", "Delete", new { id = item.dis_id })
-            }
-            else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
-            {
-
-            }
-        </td>
-    </tr>
-            }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor.aut_nom) @Html.DisplayFor(modelItem => item.Autor.aut_ape)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dis_alb)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.dis_val)
+            </td>
+            <td>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Editar | ", "Edit", new { id = item.dis_id })
+                    @*@Html.ActionLink("Details", "Details", new { id = item.dis_id })*@
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.dis_id })
+                }
+                else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
+                {
+                    @Html.ActionLink("Ver Canciones | ", "canciones", new { id = item.dis_id })
+                    <a href="#" onclick="cargar_carrocompras(@item.dis_id,'@ViewBag.rut','@item.dis_alb')" data-toggle="modal" , data-target="#myModal">Comprar</a>
+                }
+            </td>
+        </tr>
+    }
 
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Agregar Producto al Carro</h4>
+            </div>
+            <div id="modal-body-cargar-carro" class="modal-body">
+
+
+
+
+                <form>
+                    <input id="usu_rut" type="hidden" />
+                    <input id="dis_id" type="hidden" />
+                    <div class="form-group">
+                        <label for="dis_alb">Producto</label>
+                        <input type="text" class="form-control" id="dis_alb" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidad">Cantidad</label>
+                        <select class="form-control" id="car_can">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </form>
+
+
+                <div id="mensaje_agregar">
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="agregarAlCarro()">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>

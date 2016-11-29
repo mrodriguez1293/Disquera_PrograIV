@@ -4,11 +4,14 @@
     ViewBag.Title = "yo_compro";
 }
 
-<h2>yo_compro</h2>
+<h2>Mis Compras</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -39,12 +42,20 @@
             {
                 <td>Autorizada</td>
             }
+            else if (item.ven_autorizada == 2)
+            {
+                <td>
+                    Rechazada
+                </td>
+            }
             else
             {
-                <td>Rechazada</td>
+                <td>
+                    Pendiente
+                </td>
             }
             <td>
-                @Html.DisplayFor(modelItem => item.ven_tot)
+                $@Html.DisplayFor(modelItem => item.ven_tot)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Usuario.usu_nom)
@@ -55,23 +66,22 @@
             <td>
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ven_id })
-                    @Html.ActionLink("Details", "Details", new { id = item.ven_id })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ven_id })
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ven_id })*@
+                    @*@Html.ActionLink("Details", "Details", new { id = item.ven_id })*@
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.ven_id })*@
+                    @Html.ActionLink("Autorizar |", "venta_eje", new { id = item.ven_id })
+                    @Html.ActionLink("Rechazar |", "venta_eje", new { id = item.ven_id })
+                    @Html.ActionLink("Detalle Compra", "venta_eje", new { id = item.ven_id })
                 }
                 else if (User.IsInRole("Ejecutivo"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ven_id })
-                    @Html.ActionLink("Details", "Details", new { id = item.ven_id })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ven_id })
-
+                    @Html.ActionLink("Autorizar |", "venta_eje", new { id = item.ven_id })
+                    @Html.ActionLink("Rechazar |", "venta_eje", new { id = item.ven_id })
+                    @Html.ActionLink("Detalle Compra", "venta_eje", new { id = item.ven_id })
                 }
-                else
-                {
-                    @Html.ActionLink("Ver Detalles Compra ", "venta_eje", new { id = item.ven_id })
-                }
+                <!-- ESTO NO ESTA FUNCIONANDO POR ALGUNA RAZÓN -->
+                @Html.ActionLink("Detalle Compra", "Index", "DiscoVentas", new { id = item.ven_id })
             </td>
         </tr>
     }
-
 </table>

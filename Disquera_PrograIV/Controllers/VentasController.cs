@@ -25,16 +25,36 @@ namespace Disquera_PrograIV.Controllers
             string rut = HttpContext.Session["Rut"].ToString();
             return View(venta.Where(e => e.usu_rut_cli == rut).ToList());
         }
+
+        public ActionResult autorizar_rechazar([Bind(Include = "ven_id,ven_date,ven_autorizada,ven_tot,usu_rut_eje,usu_rut_cli")] Venta venta)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(venta).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+                //return View("Index");
+            }
+            ViewBag.usu_rut_cli = new SelectList(db.Usuario, "usu_rut", "usu_nom", venta.usu_rut_cli);
+            ViewBag.usu_rut_eje = new SelectList(db.Usuario, "usu_rut", "usu_nom", venta.usu_rut_eje);
+            //return View("Index");
+            return RedirectToAction("Index");
+        }
+        
         // GET: Ventas
         public ActionResult Index()
         {
             var venta = db.Venta.Include(v => v.Usuario).Include(v => v.Usuario1);
             //leer la variable session qe contiene rut
             string rut = HttpContext.Session["Rut"].ToString();
-            return View(venta.Where(e => e.usu_rut_eje == rut).ToList());
+            ViewBag.rut = rut;
+            //Si el usuario es Cliente, listamos solo sus comrpras
+            if (Request.IsAuthenticated && User.IsInRole("Cliente"))
+            {
+                return View(venta.Where(e => e.usu_rut_eje == rut).ToList());
+            }
 
-
-           
+            return View(venta.ToList());
         }
 
         // GET: Ventas/Details/5

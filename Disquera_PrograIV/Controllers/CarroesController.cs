@@ -23,11 +23,16 @@ namespace Disquera_PrograIV.Controllers
 
         public int getItemsCarro()
         {
-            //Leer la variable de session que contiene el Rut
-            string usu_rut = HttpContext.Session["Rut"].ToString();
-
             var carro = db.Carro.Include(c => c.Disco).Include(c => c.Usuario);
-            return carro.ToList().Where(c => c.usu_rut == usu_rut).ToList().Count;
+
+            if (Request.IsAuthenticated && User.IsInRole("Cliente")){
+                //Leer la variable de session que contiene el Rut
+                string usu_rut = HttpContext.Session["Rut"].ToString();
+
+                return carro.ToList().Where(c => c.usu_rut == usu_rut).ToList().Count;
+            }
+
+            return 0;
         }
 
         public ActionResult getMiniCarro()
@@ -50,17 +55,21 @@ namespace Disquera_PrograIV.Controllers
             return "Error al intentar almacenar";
         }
 
-        public ActionResult Eliminar(string id)
+        public string Eliminar(int dis_id)
         {
-            //Leer la variable de session que contiene el Rut
-            string usu_rut = HttpContext.Session["Rut"].ToString();
+            var carro = db.Carro.Include(c => c.Disco).Include(c => c.Usuario);
 
-            Carro carro = db.Carro.Find(usu_rut, id);
-            db.Carro.Remove(carro);
+            //Vaciamos el carro para el usuario
+            foreach (var item in carro.ToList())
+            {
+                if (item.usu_rut == HttpContext.Session["Rut"].ToString() && item.dis_id== dis_id)
+                {
+                    db.Carro.Remove(item);
+                }
+            }
             db.SaveChanges();
-            
-            var carro1 = db.Carro.Include(c => c.Disco).Include(c => c.Usuario);
-            return View(carro1.ToList().Where(c => c.usu_rut == usu_rut).ToList());
+
+            return HttpContext.Session["Rut"].ToString() + " " + dis_id + " Eliminado Con Exito";
         }
 
         public String Comprar()
@@ -99,8 +108,11 @@ namespace Disquera_PrograIV.Controllers
                     aGuardar1.ven_id = ultimo;
                     aGuardar1.dis_id = item.dis_id;
                     aGuardar1.dive_can = item.car_can;
+
+                    db.DiscoVenta.Add(aGuardar1);
                 }
             }
+            db.SaveChanges();
 
             //Vaciamos el carro para el usuario
             foreach (var item in carro.ToList())

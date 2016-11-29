@@ -9,14 +9,9 @@
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Crear Nuevo", "Create")
     </p>
 }
-else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>}
 <table class="table">
     <tr>
         <th>
@@ -25,18 +20,26 @@ else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.gen_nom)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.gen_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.gen_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.gen_id }) |
-            @Html.ActionLink("Ver Discos ", "dis_generos", new { id = item.gen_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.gen_nom)
+            </td>
+            <td>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Editar | ", "Edit", new { id = item.gen_id })
+                    @*@Html.ActionLink("Details | ", "Details", new { id=item.gen_id })*@
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.gen_id })
+                }
+                else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
+                {
+                    @Html.ActionLink("Ver Discos", "dis_generos", new { id = item.gen_id })
+                }
+
+            </td>
+        </tr>
+    }
 
 </table>

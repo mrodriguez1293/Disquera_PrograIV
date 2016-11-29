@@ -8,11 +8,13 @@ namespace IdentitySample.Controllers
         {
             if (Request.IsAuthenticated && User.IsInRole("Admin"))
             {
-                return View("Dash_Admin");
+                //return View("Dash_Admin");
+                return RedirectToAction("Index", "UsersAdmin");
             }
             else if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
             {
-                return View("Dash_Ejecutivo");
+                //return View("Dash_Ejecutivo");
+                return RedirectToAction("Index", "Ventas");
             }
             else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
             {

@@ -5,11 +5,12 @@
 }
 
 <h2>Index</h2>
-@if (Request.IsAuthenticated && User.IsInRole("Ejecutivo"))
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>}
+        @Html.ActionLink("Crear Nuevo", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -36,10 +37,13 @@
             @Html.DisplayFor(modelItem => item.Nacionalidad.nac_nom)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.aut_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.aut_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.aut_id }) |
-            @Html.ActionLink("Ver Discos ", "dis_autor", new { id = item.aut_id })
+            @*@Html.ActionLink("Details", "Details", new { id=item.aut_id }) |*@
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Editar | ", "Edit", new { id = item.aut_id })
+                @Html.ActionLink("Eliminar | ", "Delete", new { id = item.aut_id })
+            }
+            @Html.ActionLink("Ver Discos", "dis_autor", new { id = item.aut_id })
         </td>
     </tr>
 }

@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated) {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) {
+@if (Request.IsAuthenticated && User.IsInRole("Cliente"))
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
@@ -10,10 +12,24 @@
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right carro">
-            <img src="img/shopping-cart.png" width="24" height="24" data-toggle="modal" data-target="#myModalCarroCompras" onclick="cargar_carrocompras(-1, 0, 0)" />
+            <img src="~/img/shopping-cart.png" width="24" height="24" data-toggle="modal" data-target="#myModalCarroCompras" onclick="cargar_carrocompras(-1, 0, 0)" />
         </ul>
         <ul id="items_carro" class="nav navbar-nav navbar-right items_carro">
             0
+        </ul>
+    }
+}
+else if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a></li>
         </ul>
     }
 }
