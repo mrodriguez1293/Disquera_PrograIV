@@ -32,7 +32,6 @@ namespace Disquera_PrograIV.Controllers
             {
                 string usu_rut = HttpContext.Session["Rut"].ToString();
                 venta.usu_rut_eje = usu_rut;
-
                 db.Entry(venta).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
